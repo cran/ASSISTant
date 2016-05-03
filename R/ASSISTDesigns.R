@@ -11,20 +11,18 @@
 #' @section Methods:
 #'
 #' \describe{
-#'   \item{\code{new(designParameters, trialParameters, generateData)}}{Create a new
-#'         instance object using the parameters specified}
-#'   \item{\code{getDesignParameters}, \code{getTrialParameters}, \code{getBoundaries}}{Accessor
-#'         methods for (obvious) object fields}
+#'   \item{\code{ASSISTDesign$new(designParameters, trialParameters, generateData)}}{Create a new
+#'         \code{ASSISTDesign} instance object using the parameters specified}
+#'   \item{\code{getDesignParameters},\code{getTrialParameters},
+#'         \code{getBoundaries}}{Accessor methods for (obvious) object fields}
 #'   \item{\code{print()}}{Print the object in a human readable form}
 #'   \item{\code{computeCriticalValues()}}{Compute the critical boundary values \eqn{\tilde{b}},
 #'         \eqn{b} and \eqn{c} for futility, efficacy and final efficacy decisions; saved in field
 #'         \code{boundaries}}
-#'   \item{\code{explore(numberOfSimulations, rngSeed,
-#'               trueParameters, showProgress)}}{Explore the
-#'         design using the specified number of simulations (default 5000) and random number seed (default 12345).
-#'         The argument \code{trueParameters} is by default the same
+#'   \item{\code{explore(numberOfSimulations = 5000, rngSeed = 12345, effectiveParameters = self$getDesignParameters(), showProgress = TRUE)}}{Explore the
+#'         design using the specified number of simulations and random number seed. \code{trueParameters} is by default the same
 #'         as \code{designParameters} as would be the case for a Type I error calculation. If changed, would yield power.
-#'         Show progress if so desired (default \code{TRUE}). Returns a data frame of results}
+#'         Show progress if so desired. Returns a data frame of results}
 #'   \item{\code{analyze(trialHistory)}}{Analyze
 #'         the design given the \code{trialHistory} which is the result of a call to \code{explore} to
 #'         simulate the design. Return a list of summary quantities}
@@ -34,7 +32,7 @@
 #'
 #' @references Adaptive Choice of Patient Subgroup for Comparing Two Treatments
 #' by Tze Leung Lai and Philip W. Lavori and Olivia Yueh-Wen Liao. Contemporary Clinical Trials,
-#' Vol. 39, No. 2, pp 191-200 (2014). \url{http://www.sciencedirect.com/science/article/pii/S1551714414001311}.
+#' Vol. 39, No. 2, pp 191-200 (2014). \url{http://www.sciencedirect.com/science/article/pii/S1551714414001311}
 #' @export
 #' @format An \code{\link{R6Class}} generator object
 #' @examples
@@ -75,10 +73,6 @@ ASSISTDesign <- R6Class("ASSISTDesign",
                                     stop("Improper number of subgroups; need at least 3; max 10")
                                 }
 
-                                if ((!numberInRange(designParameters$prevalence, low = 1e-5, high = 1-1e-5)) ||
-                                    (sum(designParameters$prevalence) != 1.0)) {
-                                    stop("Prevalences have to be proportions adding to 1!")
-                                }
                                 if (!scalarInRange(trialParameters$type1Error, low=0.0001, 0.2)) {
                                     stop("Improper type 1 error")
                                 }
@@ -88,7 +82,7 @@ ASSISTDesign <- R6Class("ASSISTDesign",
                                 if (!scalarInRange(trialParameters$eps, low=1e-5, high = 1 - 1e-5)) {
                                     stop("Improper epsilon specified")
                                 }
-                                if (!(sum(designParameters$prevalence) == 1.0)) {
+                                if (any(designParameters$prevalence <= 0)) {
                                     stop("Improper prevalence specified")
                                 }
                                 if (!all.equal(dim(designParameters$mean), c(2, designParameters$J))) {
@@ -302,6 +296,7 @@ ASSISTDesign <- R6Class("ASSISTDesign",
                                 trialParameters$effectSize <- (qnorm(1 - trialParameters$type1Error) +
                                                                qnorm(1 - trialParameters$type2Error)) /
                                     sqrt(3 * trialParameters$N[3])
+                                designParameters$prevalence <- designParameters$prevalence / sum(designParameters$prevalence)
                                 private$designParameters <- designParameters
                                 private$trialParameters <- trialParameters
                                 if (!is.null(generateData)) {
@@ -392,7 +387,6 @@ ASSISTDesign <- R6Class("ASSISTDesign",
                                     trueParameters$J <- length(trueParameters$prevalence)
                                 }
 
-                                ## checkForConformity
                                 glrBoundary <- private$boundaries
                                 prevalence <- trueParameters$prevalence
 
@@ -535,18 +529,16 @@ ASSISTDesign <- R6Class("ASSISTDesign",
 #' @section Methods:
 #'
 #' \describe{
-#'   \item{\code{new(designParameters, trialParameters, generateData)}}{Create a new
+#'   \item{\code{ASSISTDesignB$new(designParameters, trialParameters, generateData)}}{Create a new \code{ASSISTDesign}
 #'         instance object using the parameters specified. }
-#'   \item{\code{getDesignParameters}, \code{getTrialParameters}, \code{getBoundaries}}{Accessor
-#'         methods for (obvious) object slots}
+#'   \item{\code{getDesignParameters},\code{getTrialParameters},
+#'         \code{getBoundaries}}{Accessor methods for (obvious) object slots}
 #'   \item{\code{print()}}{Print the object in a human readable form}
 #'   \item{\code{computeCriticalValues()}}{Compute the critical boundary value \eqn{c_\alpha}}
-#'   \item{\code{explore(numberOfSimulations, rngSeed,
-#'               trueParameters, showProgress)}}{Explore the
-#'         design using the specified number of simulations (default 5000) and random number seed (default 12345).
-#'         The argument \code{trueParameters} is by default the same
+#'   \item{\code{explore(numberOfSimulations = 5000, rngSeed = 12345, trueParameters = self$getDesignParameters(), showProgress = TRUE)}}{Explore the design
+#'         using the specified number of simulations and random number seed.  \code{trueParameters} is by default the same
 #'         as \code{designParameters} as would be the case for a Type I error calculation. If changed, would yield power.
-#'         Show progress if so desired (default \code{TRUE}). Returns a data frame of results}
+#'         Show progress if so desired. Returns a data frame of results}
 #'   \item{\code{analyze(trialHistory)}}{Analyze
 #'         the design given the \code{trialHistory} which is the result of a call to \code{explore} to
 #'         simulate the design. Return a list of summary quantities}
@@ -556,7 +548,7 @@ ASSISTDesign <- R6Class("ASSISTDesign",
 #'
 #' @references Adaptive Choice of Patient Subgroup for Comparing Two Treatments
 #' by Tze Leung Lai and Philip W. Lavori and Olivia Yueh-Wen Liao. Contemporary Clinical Trials,
-#' Vol. 39, No. 2, pp 191-200 (2014). \url{http://www.sciencedirect.com/science/article/pii/S1551714414001311}.
+#' Vol. 39, No. 2, pp 191-200 (2014). \url{http://www.sciencedirect.com/science/article/pii/S1551714414001311}
 #' @export
 #' @format An \code{\link{R6Class}} generator object
 #' @examples
@@ -737,18 +729,16 @@ ASSISTDesignB <- R6Class("ASSISTDesignB",
 #' @section Methods:
 #'
 #' \describe{
-#'   \item{\code{new(designParameters, trialParameters, generateData)}}{Create a new
-#'         instance object using the parameters specified. }
-#'   \item{\code{getDesignParameters}, \code{getTrialParameters}, \code{getBoundaries}}{Accessor
-#'         methods for (obvious) object slots}
+#'   \item{\code{ASSISTDesignC$new(designParameters, trialParameters, generateData)}}{Create a new
+#'         \code{ASSISTDesign} instance object using the parameters specified. }
+#'   \item{\code{getDesignameters},\code{getTrialParameters},
+#'         \code{getBoundaries}}{Accessor methods for (obvious) object slots}
 #'   \item{\code{print()}}{Print the object in a human readable form}
 #'   \item{\code{computeCriticalValues()}}{Compute the critical boundary value \eqn{c_\alpha}}
-#'   \item{\code{explore(numberOfSimulations, rngSeed,
-#'               trueParameters, showProgress)}}{Explore the
-#'         design using the specified number of simulations (default 5000) and random number seed (default 12345).
-#'         The argument \code{trueParameters} is by default the same
+#'   \item{\code{explore(numberOfSimulations = 5000, rngSeed = 12345, trueParameters = self$getDesignParameters(), showProgress = TRUE)}}{Explore the design
+#'         using the specified number of simulations and random number seed.  \code{trueParameters} is by default the same
 #'         as \code{designParameters} as would be the case for a Type I error calculation. If changed, would yield power.
-#'         Show progress if so desired (default \code{TRUE}). Returns a data frame of results}
+#'         Show progress if so desired. Returns a data frame of results}
 #'   \item{\code{analyze(trialHistory)}}{Analyze
 #'         the design given the \code{trialHistory} which is the result of a call to \code{explore} to
 #'         simulate the design. Return a list of summary quantities}
@@ -758,7 +748,7 @@ ASSISTDesignB <- R6Class("ASSISTDesignB",
 #'
 #' @references Adaptive Choice of Patient Subgroup for Comparing Two Treatments
 #' by Tze Leung Lai and Philip W. Lavori and Olivia Yueh-Wen Liao. Contemporary Clinical Trials,
-#' Vol. 39, No. 2, pp 191-200 (2014). \url{http://www.sciencedirect.com/science/article/pii/S1551714414001311}.
+#' Vol. 39, No. 2, pp 191-200 (2014). \url{http://www.sciencedirect.com/science/article/pii/S1551714414001311}
 #' @export
 #' @format An \code{\link{R6Class}} generator object
 #' @examples
@@ -874,23 +864,18 @@ ASSISTDesignC <- R6Class("ASSISTDesignC",
 #' @section Methods:
 #'
 #' \describe{
-#'   \item{\code{new(designParameters, trialParameters, generateData,
-#'         numberOfSimulations, rngSeed)}}{Create
-#'         a new instance object using the parameters specified. Default number of simulations is 5000
-#'         for re-estimating effect size, 54321 for seed. Also the parameter \code{showProgress} is by default
-#'        \code{TRUE}.}
-#'   \item{\code{getDesignParameters}, \code{getTrialParameters},
+#'   \item{\code{DEFUSE3Design$new(designParameters, trialParameters, generateData, numberOfSimulations = 5000, rngSeed = 54321, showProgress = TRUE)}}{Create
+#'         a new \code{ASSISTDesign} instance object using the parameters specified. }
+#'   \item{\code{getDesignParameters},\code{getTrialParameters},
 #'         \code{getBoundaries}}{Accessor methods for (obvious) object slots}
 #'   \item{\code{print()}}{Print the object in a human readable form}
 #'   \item{\code{adjustCriticalValues(numberOfSimulations, rngSeed, showProgress)}}{Adjust the critical values
 #'         by performing simulations using the parameters provided}
 #'   \item{\code{computeCriticalValues()}}{Compute the critical boundary value \eqn{c_\alpha}}
-#'   \item{\code{explore(numberOfSimulations, rngSeed,
-#'               trueParameters, showProgress)}}{Explore the
-#'         design using the specified number of simulations (default 5000) and random number seed (default 12345).
-#'         The argument \code{trueParameters} is by default the same
+#'   \item{\code{explore(numberOfSimulations = 5000, rngSeed = 12345, trueParameters = self$getDesignParameters(). showProgress = TRUE)}}{Explore the design
+#'         using the specified number of simulations and random number seed.  \code{trueParameters} is by default the same
 #'         as \code{designParameters} as would be the case for a Type I error calculation. If changed, would yield power.
-#'         Show progress if so desired (default \code{TRUE}). Returns a data frame of results}
+#'         Show progress if so desired. Returns a data frame of results}
 #'   \item{\code{analyze(trialHistory)}}{Analyze
 #'         the design given the \code{trialHistory} which is the result of a call to \code{explore} to
 #'         simulate the design. Return a list of summary quantities}
@@ -898,9 +883,10 @@ ASSISTDesignC <- R6Class("ASSISTDesignC",
 #'         result from the \code{analyze} call}
 #' }
 #'
-#' @references Adaptive design of confirmatory trials: Advances and challenges
-#' by Tze Leung Lai and Philip W. Lavori and Ka Wai Tsang. Contemporary Clinical Trials,
-#' Vol. 45, Part A, pp 93-102 (2015). \url{http://www.sciencedirect.com/science/article/pii/S1551714415300239}.
+#' @references Adaptive design of confirmatory trials: Advances and challenges,
+#' \url{http://www.sciencedirect.com/science/article/pii/S1551714415300239} by
+#' Tze Leung Lai and Philip W. Lavori and Ka Wai Tsang. Contemporary Clinical Trials, Vol. 45, Part A,
+#' pp 93-102 (2015).
 #'
 #' @export
 #' @format An \code{\link{R6Class}} generator object

@@ -18,23 +18,18 @@ account as well.
 
 
 \describe{
-  \item{\code{new(designParameters, trialParameters, generateData,
-        numberOfSimulations, rngSeed)}}{Create
-        a new instance object using the parameters specified. Default number of simulations is 5000
-        for re-estimating effect size, 54321 for seed. Also the parameter \code{showProgress} is by default
-       \code{TRUE}.}
-  \item{\code{getDesignParameters}, \code{getTrialParameters},
+  \item{\code{DEFUSE3Design$new(designParameters, trialParameters, generateData, numberOfSimulations = 5000, rngSeed = 54321, showProgress = TRUE)}}{Create
+        a new \code{ASSISTDesign} instance object using the parameters specified. }
+  \item{\code{getDesignParameters},\code{getTrialParameters},
         \code{getBoundaries}}{Accessor methods for (obvious) object slots}
   \item{\code{print()}}{Print the object in a human readable form}
   \item{\code{adjustCriticalValues(numberOfSimulations, rngSeed, showProgress)}}{Adjust the critical values
         by performing simulations using the parameters provided}
   \item{\code{computeCriticalValues()}}{Compute the critical boundary value \eqn{c_\alpha}}
-  \item{\code{explore(numberOfSimulations, rngSeed,
-              trueParameters, showProgress)}}{Explore the
-        design using the specified number of simulations (default 5000) and random number seed (default 12345).
-        The argument \code{trueParameters} is by default the same
+  \item{\code{explore(numberOfSimulations = 5000, rngSeed = 12345, trueParameters = self$getDesignParameters(). showProgress = TRUE)}}{Explore the design
+        using the specified number of simulations and random number seed.  \code{trueParameters} is by default the same
         as \code{designParameters} as would be the case for a Type I error calculation. If changed, would yield power.
-        Show progress if so desired (default \code{TRUE}). Returns a data frame of results}
+        Show progress if so desired. Returns a data frame of results}
   \item{\code{analyze(trialHistory)}}{Analyze
         the design given the \code{trialHistory} which is the result of a call to \code{explore} to
         simulate the design. Return a list of summary quantities}
@@ -81,9 +76,10 @@ print(defuse3$summary(analysis))
 
 }
 \references{
-Adaptive design of confirmatory trials: Advances and challenges
-by Tze Leung Lai and Philip W. Lavori and Ka Wai Tsang. Contemporary Clinical Trials,
-Vol. 45, Part A, pp 93-102 (2015). \url{http://www.sciencedirect.com/science/article/pii/S1551714415300239}.
+Adaptive design of confirmatory trials: Advances and challenges,
+\url{http://www.sciencedirect.com/science/article/pii/S1551714415300239} by
+Tze Leung Lai and Philip W. Lavori and Ka Wai Tsang. Contemporary Clinical Trials, Vol. 45, Part A,
+pp 93-102 (2015).
 }
 \seealso{
 \code{ASSISTDesign} which is a superclass of this object

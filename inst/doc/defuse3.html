@@ -7,11 +7,11 @@
 <meta charset="utf-8">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
-<meta name="viewport" content="width=device-width, initial-scale=1">
+
 
 <meta name="author" content="Tze Leung Lai, Philip W. Lavori, Olivia Liao, Ka Wai Tsang and Balasubramanian Narasimhan" />
 
-<meta name="date" content="2016-05-01" />
+<meta name="date" content="2016-05-02" />
 
 <title>Design of the DEFUSE3 Trial</title>
 
@@ -40,25 +40,7 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 
 
 
-
-</head>
-
-<body>
-
 <style type="text/css">
-.main-container {
-  max-width: 940px;
-  margin-left: auto;
-  margin-right: auto;
-}
-code {
-  color: inherit;
-  background-color: rgba(0, 0, 0, 0.04);
-}
-img {
-  max-width:100%;
-  height: auto;
-}
 h1 {
   font-size: 34px;
 }
@@ -79,6 +61,30 @@ h5 {
 }
 h6 {
   font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+</head>
+
+<body>
+
+<style type="text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
 }
 .tabbed-pane {
   padding-top: 12px;
@@ -109,9 +115,10 @@ $(document).ready(function () {
 <div class="fluid-row" id="header">
 
 
-<h1 class="title">Design of the DEFUSE3 Trial</h1>
+
+<h1 class="title toc-ignore">Design of the DEFUSE3 Trial</h1>
 <h4 class="author"><em>Tze Leung Lai, Philip W. Lavori, Olivia Liao, Ka Wai Tsang and Balasubramanian Narasimhan</em></h4>
-<h4 class="date"><em>2016-05-01</em></h4>
+<h4 class="date"><em>2016-05-02</em></h4>
 
 </div>
 
@@ -187,7 +194,7 @@ print(defuse3)</code></pre>
 ##         data.frame(subGroup = subGroup, trt = trt, score = rankin)
 ##     }
 ## }
-## &lt;environment: 0x7fb83d709df8&gt;</code></pre>
+## &lt;environment: 0x7fd45ff08748&gt;</code></pre>
 <pre class="r"><code>result &lt;- defuse3$explore(numberOfSimulations = 50, showProgress = FALSE)
 analysis &lt;- defuse3$analyze(result)
 print(defuse3$summary(analysis))</code></pre>

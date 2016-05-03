@@ -27,11 +27,10 @@ elements of the list are the following
      \item{sd}{a \eqn{2\times J} matrix of standard deviations, the first row for the
                null setting, the second for the alternative}
     }
-   Here \eqn{J} is the number of groups.
   }
   \item{prevalences}{
     A list of two elements with prevalence vectors used in the paper; the lengths of these
-    vectors implicitly define the number of groups \eqn{J}.
+    vectors implicitly define the number of groups.
     \describe{
      \item{table1}{a vector of equal prevalences for six groups used in table 1}
      \item{table2}{a vector of prevalences used in table 2 of the paper}

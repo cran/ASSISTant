@@ -18,18 +18,16 @@ and what quantities are computed in a trial run.
 
 
 \describe{
-  \item{\code{new(designParameters, trialParameters, generateData)}}{Create a new
-        instance object using the parameters specified. }
-  \item{\code{getDesignParameters}, \code{getTrialParameters}, \code{getBoundaries}}{Accessor
-        methods for (obvious) object slots}
+  \item{\code{ASSISTDesignC$new(designParameters, trialParameters, generateData)}}{Create a new
+        \code{ASSISTDesign} instance object using the parameters specified. }
+  \item{\code{getDesignameters},\code{getTrialParameters},
+        \code{getBoundaries}}{Accessor methods for (obvious) object slots}
   \item{\code{print()}}{Print the object in a human readable form}
   \item{\code{computeCriticalValues()}}{Compute the critical boundary value \eqn{c_\alpha}}
-  \item{\code{explore(numberOfSimulations, rngSeed,
-              trueParameters, showProgress)}}{Explore the
-        design using the specified number of simulations (default 5000) and random number seed (default 12345).
-        The argument \code{trueParameters} is by default the same
+  \item{\code{explore(numberOfSimulations = 5000, rngSeed = 12345, trueParameters = self$getDesignParameters(), showProgress = TRUE)}}{Explore the design
+        using the specified number of simulations and random number seed.  \code{trueParameters} is by default the same
         as \code{designParameters} as would be the case for a Type I error calculation. If changed, would yield power.
-        Show progress if so desired (default \code{TRUE}). Returns a data frame of results}
+        Show progress if so desired. Returns a data frame of results}
   \item{\code{analyze(trialHistory)}}{Analyze
         the design given the \code{trialHistory} which is the result of a call to \code{explore} to
         simulate the design. Return a list of summary quantities}
@@ -58,7 +56,7 @@ designC$summary(analysis)
 \references{
 Adaptive Choice of Patient Subgroup for Comparing Two Treatments
 by Tze Leung Lai and Philip W. Lavori and Olivia Yueh-Wen Liao. Contemporary Clinical Trials,
-Vol. 39, No. 2, pp 191-200 (2014). \url{http://www.sciencedirect.com/science/article/pii/S1551714414001311}.
+Vol. 39, No. 2, pp 191-200 (2014). \url{http://www.sciencedirect.com/science/article/pii/S1551714414001311}
 }
 \seealso{
 \code{ASSISTDesignB} which is a superclass of this object

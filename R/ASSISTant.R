@@ -12,8 +12,9 @@
 #' by Tze Leung Lai and Philip W. Lavori and Olivia Yueh-Wen Liao. Contemporary Clinical Trials,
 #' Vol. 39, No. 2, pp 191-200 (2014). \url{http://www.sciencedirect.com/science/article/pii/S1551714414001311}
 #' @references Adaptive design of confirmatory trials: Advances and challenges,
-#' by Tze Leung Lai and Philip W. Lavori and Ka Wai Tsang. Contemporary Clinical Trials, Vol. 45,
-#' Part A, pp 93-102 (2015). \url{http://www.sciencedirect.com/science/article/pii/S1551714415300239}.
+#' \url{http://www.sciencedirect.com/science/article/pii/S1551714415300239} by
+#' Tze Leung Lai and Philip W. Lavori and Ka Wai Tsang. Contemporary Clinical Trials, Vol. 45, Part A,
+#' pp 93-102 (2015).
 #'
 NULL
 
