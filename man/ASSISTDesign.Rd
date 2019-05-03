@@ -6,7 +6,7 @@
 \title{A class to encapsulate the adaptive clinical trial design of Lai, Lavori and Liao}
 \format{An \code{\link{R6Class}} generator object}
 \usage{
-ASSISTDesign
+# design <- ASSISTDesign$new(trialParameters, designParameters)
 }
 \description{
 \code{ASSISTDesign} objects are used to design, simulate and analyze
@@ -16,25 +16,27 @@ adaptive group sequential clinical trial with three stages.
 
 
 \describe{
-  \item{\code{ASSISTDesign$new(designParameters, trialParameters, generateData)}}{Create a new
-        \code{ASSISTDesign} instance object using the parameters specified}
-  \item{\code{getDesignParameters},\code{getTrialParameters},
-        \code{getBoundaries}}{Accessor methods for (obvious) object fields}
-  \item{\code{print()}}{Print the object in a human readable form}
-  \item{\code{computeCriticalValues()}}{Compute the critical boundary values \eqn{\tilde{b}},
-        \eqn{b} and \eqn{c} for futility, efficacy and final efficacy decisions; saved in field
-        \code{boundaries}}
-  \item{\code{explore(numberOfSimulations = 5000, rngSeed = 12345, effectiveParameters = self$getDesignParameters(), showProgress = TRUE)}}{Explore the
-        design using the specified number of simulations and random number seed. \code{trueParameters} is by default the same
-        as \code{designParameters} as would be the case for a Type I error calculation. If changed, would yield power.
-        Show progress if so desired. Returns a data frame of results}
-  \item{\code{analyze(trialHistory)}}{Analyze
-        the design given the \code{trialHistory} which is the result of a call to \code{explore} to
-        simulate the design. Return a list of summary quantities}
-  \item{\code{summary(analysis)}}{Print the operating characteristics of the design, using the analysis
-        result from the \code{analyze} call}
+\item{\code{ASSISTDesign$new(designParameters, trialParameters, discreteData = FALSE, boundaries)}}{Create a new
+\code{ASSISTDesign} instance object using the parameters specified. If \code{discreteData} is \code{TRUE} use a discrete distribution for the Rankin scores and \code{designParameters} must contain the appropriate distributions to sample from. If \code{boundaries} is specified, it used.}
+\item{\code{getDesignParameters},\code{getTrialParameters},
+\code{getBoundaries}}{Accessor methods for (obvious) object fields}
+\item{\code{setBoundaries}}{Modifier method for boundaries a
+named vector of double values with names \code{btilde},
+\code{b}, and \code{c}, in that order}
+\item{\code{print()}}{Print the object in a human readable form}
+\item{\code{computeCriticalValues()}}{Compute the critical boundary values \eqn{\tilde{b}},
+\eqn{b} and \eqn{c} for futility, efficacy and final efficacy decisions; saved in field
+\code{boundaries}}
+\item{\code{explore(numberOfSimulations = 5000, rngSeed = 12345)}}{Explore the
+design using the specified number of simulations and random number seed. There are a number of further parameters. By default \code{trueParameters = self$getDesignParameters()} as would be the case for a Type I error calculation. If changed, would yield power. Also \code{recordStats = TRUE/FALSE}, \code{showProgress = TRUE/FALSE}, \code{saveRawData = TRUE/FALSE} control recording statistics, raw data saves, display of  progress. Fixed sample size  (\code{fixedSampleSize = TRUE/FALSE}) can be specified to ensure that patients lost after a futile overall look are not made up. Returns a list of results}
+\item{\code{analyze(trialExploration)}}{Analyze
+the design given the \code{trialExploration} which is the result of a call to \code{explore} to
+simulate the design. Return a list of summary quantities}
+\item{\code{summary(analysis)}}{Print the operating characteristics of the design, using the analysis
+result from the \code{analyze} call}
 }
 }
+
 \examples{
 \dontrun{
 data(LLL.SETTINGS)
@@ -53,15 +55,13 @@ designA$summary(analysis)
 }
 ## For full examples, try:
 ## browseURL(system.file("full_doc/ASSISTant.html", package="ASSISTant"))
-
 }
 \references{
 Adaptive Choice of Patient Subgroup for Comparing Two Treatments
 by Tze Leung Lai and Philip W. Lavori and Olivia Yueh-Wen Liao. Contemporary Clinical Trials,
-Vol. 39, No. 2, pp 191-200 (2014). \url{http://www.sciencedirect.com/science/article/pii/S1551714414001311}
+Vol. 39, No. 2, pp 191-200 (2014). doi:10.1016/j.cct.2014.09.001g
 }
 \seealso{
 \code{LLL.SETTINGS} for an explanation of trial parameters
 }
 \keyword{datasets}
-

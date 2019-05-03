@@ -1,5 +1,3 @@
-#
-
 ---
 title: "Design of the DEFUSE3 Trial"
 author: "Tze Leung Lai, Philip W. Lavori, Olivia Liao, Ka Wai Tsang
@@ -29,20 +27,12 @@ knitr::opts_chunk$set(
 )
 ```
 
-## Introduction
-
+## Continuous Rankin Simulations
 
 Here, we present the calculations for the initial design of the
 DEFUSE3 trial based on [@Lai2014191] and [@Lai201593]. The trial
 parameters are fixed as follows.
 
-_NOTE_ The number of simulations has been drastically reduced in this
-vignette in order to avoid taxing CRAN servers. The `full_doc` sources
-contain the complete sources and output; see files in the directory
-
-```{r, eval = FALSE}
-system.file("full_doc", package="ASSISTant")
-```
 
 ```{r}
 library(ASSISTant)
@@ -76,72 +66,154 @@ designParameters <- list(
 )
 ```
 
-## The NULL Scenario
+### The NULL Scenario
 
 ```{r}
 defuse3 <- DEFUSE3Design$new(trialParameters = trialParameters,
-                             numberOfSimulations = 100,
-                             designParameters = designParameters$nul0, showProgress = FALSE)
+                             numberOfSimulations = 500,
+                             designParameters = designParameters$nul0,
+                             showProgress = FALSE)
 print(defuse3)
 ```
 
 ```{r}
-result <- defuse3$explore(numberOfSimulations = 50, showProgress = FALSE)
+result <- defuse3$explore(numberOfSimulations = 500,
+                          showProgress = FALSE,
+                          rngSeed = 28912)
 analysis <- defuse3$analyze(result)
 print(defuse3$summary(analysis))
 ```
 
-## The ALT1 Scenario
+### The ALT1 Scenario
 
 ```{r}
-result <- defuse3$explore(numberOfSimulations = 50, trueParameters = designParameters$alt1,
-                          showProgress = FALSE)
-analysis <- defuse3$analyze(result)
-print(defuse3$summary(analysis))
+result1 <- defuse3$explore(numberOfSimulations = 500,
+                           trueParameters = designParameters$alt1,
+                           showProgress = FALSE,
+                           rngSeed = 737218)
+analysis1 <- defuse3$analyze(result1)
+print(defuse3$summary(analysis1))
 ```
 
-## The ALT2 Scenario
+### The ALT2 Scenario
 
 ```{r}
-result <- defuse3$explore(numberOfSimulations = 50, trueParameters = designParameters$alt2,
-                          showProgress = FALSE)
-analysis <- defuse3$analyze(result)
-print(defuse3$summary(analysis))
+result2 <- defuse3$explore(numberOfSimulations = 500,
+                           trueParameters = designParameters$alt2,
+                           showProgress = FALSE,
+                          rngSeed = 928812)
+analysis2 <- defuse3$analyze(result2)
+print(defuse3$summary(analysis2))
 ```
 
-## The ALT3 Scenario
+## Discrete Rankin Simulations
+
+### The Discretized Scenarios 
+
+The discretized scenarios are designed to generally mimic the trends
+above in the alternatives. However, we have a problem: we cannot
+simulatenously match the mean and sd of the alternatives
+above. (Actually, we can, but not with Rankin scores 0 through 6. The
+software can easily be modified to generate discrete values where the
+values are 0 to 6 divided by the standard deviation of the respective
+distribution, for example.)  
+
+_Also in future versions, I need to allow for more general support
+values for the scores, not just 0 through 6. Easy to do, but not done
+yet._
+
+
+Some types of distributions:
 
 ```{r}
-result <- defuse3$explore(numberOfSimulations = 50, trueParameters = designParameters$alt3,
-                          showProgress = FALSE)
-analysis <- defuse3$analyze(result)
-print(defuse3$summary(analysis))
+null.uniform <- rep(1, 7L) ## uniform on 7 support points
+hourglass <- c(1, 2, 2, 1, 2, 2, 1)
+inverted.hourglass <- c(2, 1, 1, 2, 1, 1, 2)
+bottom.heavy <- c(2, 2, 2, 1, 1, 1, 1)
+bottom.heavier <- c(3, 3, 2, 2, 1, 1, 1)
+bottom.loaded <- c(4, 4, 3, 3, 2, 1, 1)
+top.heavy <- c(1, 1, 1, 1, 2, 2, 2)
+top.heavier <- c(1, 1, 1, 2, 2, 3, 3)
+top.loaded <- c(1, 1, 2, 3, 3, 4, 4)
 ```
 
-## The ALT4 Scenario
+It is instructive to see what the means and standard deviations are. 
 
 ```{r}
-result <- defuse3$explore(numberOfSimulations = 50, trueParameters = designParameters$alt4,
-                          showProgress = FALSE)
-analysis <- defuse3$analyze(result)
-print(defuse3$summary(analysis))
+```{r}
+knitr::kable(
+           sapply(list(null = null.uniform,
+                       hourglass = hourglass,
+                       inv.hourglass = inverted.hourglass,
+                       bot.heavy = bottom.heavy,
+                       bot.heavier = bottom.heavier,
+                       bot.loaded = bottom.loaded,
+                       top.heavy = top.heavy,
+                       top.heavier = top.heavier,
+                       top.loaded = top.loaded),
+                  computeMeanAndSD)
+       )
 ```
 
-## The ALT5 Scenario
+With this in mind, we can reel off some runs. Phil, you mentioned you
+wanted $J = 2$, which I adhere to, below.
 
 ```{r}
-result <- defuse3$explore(numberOfSimulations = 50, trueParameters = designParameters$alt5,
-                          showProgress = FALSE)
-analysis <- defuse3$analyze(result)
-print(defuse3$summary(analysis))
+designParameters <- list(
+    nul0 = list(prevalence = rep(1, 2),
+                ctlDist = null.uniform,
+                trtDist = cbind(null.uniform,
+                                null.uniform)),
+    alt1 = list(prevalence = rep(1, 2), 
+                ctlDist = null.uniform,
+                trtDist = cbind(top.loaded,
+                                null.uniform)),
+    alt2 = list(prevalence = rep(1, 2), 
+                ctlDist = null.uniform,
+                trtDist = cbind(null.uniform,
+                                top.loaded))
+)
 ```
 
-## The ALT6 Scenario
+### The NULL Scenario
 
 ```{r}
-result <- defuse3$explore(numberOfSimulations = 50, trueParameters = designParameters$alt6,
-                          showProgress = FALSE)
-analysis <- defuse3$analyze(result)
-print(defuse3$summary(analysis))
+discDefuse3 <- DEFUSE3Design$new(trialParameters = trialParameters,
+                                 numberOfSimulations = 5000,
+                                 discreteData = TRUE,
+                                 designParameters = designParameters$nul0,
+                                 showProgress = FALSE)
+print(discDefuse3)
 ```
 
+```{r}
+result <- discDefuse3$explore(numberOfSimulations = 50,
+                              showProgress = FALSE,
+                              rngSeed = 3783)
+analysis <- discDefuse3$analyze(result)
+print(discDefuse3$summary(analysis))
+```
+
+### The ALT1 Scenario
+
+```{r}
+result1 <- discDefuse3$explore(numberOfSimulations = 50,
+                               trueParameters = designParameters$alt1,
+                               showProgress = FALSE,
+                               rngSeed = 28912)
+analysis1 <- discDefuse3$analyze(result1)
+print(discDefuse3$summary(analysis1))
+```
+
+### The ALT2 Scenario
+
+```{r}
+result2 <- discDefuse3$explore(numberOfSimulations = 50,
+                               trueParameters = designParameters$alt2,
+                               showProgress = FALSE,
+                               rngSeed = 931)
+analysis2 <- discDefuse3$analyze(result2)
+print(discDefuse3$summary(analysis2))
+```
+
+## References

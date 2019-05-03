@@ -1,5 +1,3 @@
-#
-
 ---
 title: "Adaptive Subgroup Selection in Sequential Trials"
 author: "Tze Leung Lai, Philip W. Lavori, Olivia Liao, Ka Wai Tsang
@@ -76,6 +74,7 @@ print(designA$summary(analysis))
 ```
 
 ### Alternative Scenario S1
+
 ```{r}
 scenario <- LLL.SETTINGS$scenarios$S1
 trueParameters <- list(prevalence = LLL.SETTINGS$prevalences$table1,
@@ -88,6 +87,7 @@ print(designA$summary(analysis))
 ```
 
 ### Alternative Scenario S2
+
 ```{r}
 scenario <- LLL.SETTINGS$scenarios$S2
 trueParameters <- list(prevalence = LLL.SETTINGS$prevalences$table1,
@@ -100,6 +100,7 @@ print(designA$summary(analysis))
 ```
 
 ### Alternative Scenario S3
+
 ```{r}
 scenario <- LLL.SETTINGS$scenarios$S3
 trueParameters <- list(prevalence = LLL.SETTINGS$prevalences$table1,
@@ -112,6 +113,7 @@ print(designA$summary(analysis))
 ```
 
 ### Alternative Scenario S4
+
 ```{r}
 scenario <- LLL.SETTINGS$scenarios$S4
 trueParameters <- list(prevalence = LLL.SETTINGS$prevalences$table1,
@@ -124,6 +126,7 @@ print(designA$summary(analysis))
 ```
 
 ### Alternative Scenario S5
+
 ```{r}
 scenario <- LLL.SETTINGS$scenarios$S5
 trueParameters <- list(prevalence = LLL.SETTINGS$prevalences$table1,
@@ -136,6 +139,7 @@ print(designA$summary(analysis))
 ```
 
 ### Alternative Scenario S6
+
 ```{r}
 scenario <- LLL.SETTINGS$scenarios$S6
 trueParameters <- list(prevalence = LLL.SETTINGS$prevalences$table1,
@@ -148,6 +152,7 @@ print(designA$summary(analysis))
 ```
 
 ### Alternative Scenario S7
+
 ```{r}
 scenario <- LLL.SETTINGS$scenarios$S7
 trueParameters <- list(prevalence = LLL.SETTINGS$prevalences$table1,
@@ -160,6 +165,7 @@ print(designA$summary(analysis))
 ```
 
 ### Alternative Scenario S8
+
 ```{r}
 scenario <- LLL.SETTINGS$scenarios$S8
 trueParameters <- list(prevalence = LLL.SETTINGS$prevalences$table1,
@@ -172,6 +178,7 @@ print(designA$summary(analysis))
 ```
 
 ### Alternative Scenario S9
+
 ```{r}
 scenario <- LLL.SETTINGS$scenarios$S9
 trueParameters <- list(prevalence = LLL.SETTINGS$prevalences$table1,
@@ -184,6 +191,7 @@ print(designA$summary(analysis))
 ```
 
 ### Alternative Scenario S10
+
 ```{r}
 scenario <- LLL.SETTINGS$scenarios$S10
 trueParameters <- list(prevalence = LLL.SETTINGS$prevalences$table1,
@@ -198,6 +206,7 @@ print(designA$summary(analysis))
 ## Table 2 Results
 
 ### Scenario S0
+
 ```{r}
 scenario <- LLL.SETTINGS$scenarios$S0
 designParameters <- list(prevalence = LLL.SETTINGS$prevalences$table2,
@@ -215,6 +224,7 @@ print(designA$summary(analysis))
 ```
 
 ### Alternative Scenario S1
+
 ```{r}
 scenario <- LLL.SETTINGS$scenarios$S1
 trueParameters <- list(prevalence = LLL.SETTINGS$prevalences$table2,
@@ -227,6 +237,7 @@ print(designA$summary(analysis))
 ```
 
 ### Alternative Scenario S2
+
 ```{r}
 scenario <- LLL.SETTINGS$scenarios$S2
 trueParameters <- list(prevalence = LLL.SETTINGS$prevalences$table2,
@@ -239,6 +250,7 @@ print(designA$summary(analysis))
 ```
 
 ### Alternative Scenario S3
+
 ```{r}
 scenario <- LLL.SETTINGS$scenarios$S3
 trueParameters <- list(prevalence = LLL.SETTINGS$prevalences$table2,
@@ -251,6 +263,7 @@ print(designA$summary(analysis))
 ```
 
 ### Alternative Scenario S4
+
 ```{r}
 scenario <- LLL.SETTINGS$scenarios$S4
 trueParameters <- list(prevalence = LLL.SETTINGS$prevalences$table2,
@@ -263,6 +276,7 @@ print(designA$summary(analysis))
 ```
 
 ### Alternative Scenario S5
+
 ```{r}
 scenario <- LLL.SETTINGS$scenarios$S5
 trueParameters <- list(prevalence = LLL.SETTINGS$prevalences$table2,
@@ -275,6 +289,7 @@ print(designA$summary(analysis))
 ```
 
 ### Alternative Scenario S6
+
 ```{r}
 scenario <- LLL.SETTINGS$scenarios$S6
 trueParameters <- list(prevalence = LLL.SETTINGS$prevalences$table2,
@@ -287,6 +302,7 @@ print(designA$summary(analysis))
 ```
 
 ### Alternative Scenario S7
+
 ```{r}
 scenario <- LLL.SETTINGS$scenarios$S7
 trueParameters <- list(prevalence = LLL.SETTINGS$prevalences$table2,
@@ -299,6 +315,7 @@ print(designA$summary(analysis))
 ```
 
 ### Alternative Scenario S8
+
 ```{r}
 scenario <- LLL.SETTINGS$scenarios$S8
 trueParameters <- list(prevalence = LLL.SETTINGS$prevalences$table2,
@@ -311,6 +328,7 @@ print(designA$summary(analysis))
 ```
 
 ### Alternative Scenario S9
+
 ```{r}
 scenario <- LLL.SETTINGS$scenarios$S9
 trueParameters <- list(prevalence = LLL.SETTINGS$prevalences$table2,
@@ -323,6 +341,7 @@ print(designA$summary(analysis))
 ```
 
 ### Alternative Scenario S10
+
 ```{r}
 scenario <- LLL.SETTINGS$scenarios$S10
 trueParameters <- list(prevalence = LLL.SETTINGS$prevalences$table2,
@@ -334,6 +353,7 @@ analysis <- designA$analyze(result)
 print(designA$summary(analysis))
 ```
 
+## References
 
 
 

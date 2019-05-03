@@ -1,11 +1,11 @@
 Package: ASSISTant
 Type: Package
 Title: Adaptive Subgroup Selection in Group Sequential Trials
-Version: 1.2-3
-Date: 2016-05-02
+Version: 1.4.2
+Date: 2019-05-01
 VignetteBuilder: knitr
 Authors@R: c(person("Tze Leung", "Lai", role=c("ctb"),
-	   	    email = "lavori@stanford.edu"),
+	   	    email = "lait@stanford.edu"),
 	     person("Philip", "Lavori", role=c("aut"),
 	   	    email = "lavori@stanford.edu"),
 	     person("Olivia", "Liao", role=c("aut"),
@@ -21,11 +21,12 @@ Description: Clinical trial design for subgroup selection in three-stage group
     such trials. An implementation of the initial DEFUSE-3 trial is also provided
     as a vignette.
 License: GPL (>= 2)
-RoxygenNote: 5.0.1
-Imports: R6, mvtnorm
-Suggests: knitr, rmarkdown
+Encoding: UTF-8
+RoxygenNote: 6.1.1
+Imports: R6, mvtnorm, knitr, magrittr, dplyr
+Suggests: rmarkdown
 NeedsCompilation: no
-Packaged: 2016-05-02 18:43:32 UTC; naras
+Packaged: 2019-05-03 18:45:52 UTC; naras
 Author: Tze Leung Lai [ctb],
   Philip Lavori [aut],
   Olivia Liao [aut],
@@ -33,4 +34,4 @@ Author: Tze Leung Lai [ctb],
   Ka Wai Tsang [aut]
 Maintainer: Balasubramanian Narasimhan <naras@stat.Stanford.EDU>
 Repository: CRAN
-Date/Publication: 2016-05-03 01:35:52
+Date/Publication: 2019-05-03 19:10:03 UTC

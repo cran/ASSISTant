@@ -9,9 +9,6 @@ knitr::opts_chunk$set(
   cache = FALSE
 )
 
-## ---- eval = FALSE-------------------------------------------------------
-#  system.file("full_doc", package="ASSISTant")
-
 ## ------------------------------------------------------------------------
 library(ASSISTant)
 ##Fix randomization vector N, errors, eps
@@ -42,48 +39,105 @@ designParameters <- list(
 
 ## ------------------------------------------------------------------------
 defuse3 <- DEFUSE3Design$new(trialParameters = trialParameters,
-                             numberOfSimulations = 100,
-                             designParameters = designParameters$nul0, showProgress = FALSE)
+                             numberOfSimulations = 500,
+                             designParameters = designParameters$nul0,
+                             showProgress = FALSE)
 print(defuse3)
 
 ## ------------------------------------------------------------------------
-result <- defuse3$explore(numberOfSimulations = 50, showProgress = FALSE)
+result <- defuse3$explore(numberOfSimulations = 500,
+                          showProgress = FALSE,
+                          rngSeed = 28912)
 analysis <- defuse3$analyze(result)
 print(defuse3$summary(analysis))
 
 ## ------------------------------------------------------------------------
-result <- defuse3$explore(numberOfSimulations = 50, trueParameters = designParameters$alt1,
-                          showProgress = FALSE)
-analysis <- defuse3$analyze(result)
-print(defuse3$summary(analysis))
+result1 <- defuse3$explore(numberOfSimulations = 500,
+                           trueParameters = designParameters$alt1,
+                           showProgress = FALSE,
+                           rngSeed = 737218)
+analysis1 <- defuse3$analyze(result1)
+print(defuse3$summary(analysis1))
 
 ## ------------------------------------------------------------------------
-result <- defuse3$explore(numberOfSimulations = 50, trueParameters = designParameters$alt2,
-                          showProgress = FALSE)
-analysis <- defuse3$analyze(result)
-print(defuse3$summary(analysis))
+result2 <- defuse3$explore(numberOfSimulations = 500,
+                           trueParameters = designParameters$alt2,
+                           showProgress = FALSE,
+                          rngSeed = 928812)
+analysis2 <- defuse3$analyze(result2)
+print(defuse3$summary(analysis2))
 
 ## ------------------------------------------------------------------------
-result <- defuse3$explore(numberOfSimulations = 50, trueParameters = designParameters$alt3,
-                          showProgress = FALSE)
-analysis <- defuse3$analyze(result)
-print(defuse3$summary(analysis))
+null.uniform <- rep(1, 7L) ## uniform on 7 support points
+hourglass <- c(1, 2, 2, 1, 2, 2, 1)
+inverted.hourglass <- c(2, 1, 1, 2, 1, 1, 2)
+bottom.heavy <- c(2, 2, 2, 1, 1, 1, 1)
+bottom.heavier <- c(3, 3, 2, 2, 1, 1, 1)
+bottom.loaded <- c(4, 4, 3, 3, 2, 1, 1)
+top.heavy <- c(1, 1, 1, 1, 2, 2, 2)
+top.heavier <- c(1, 1, 1, 2, 2, 3, 3)
+top.loaded <- c(1, 1, 2, 3, 3, 4, 4)
 
 ## ------------------------------------------------------------------------
-result <- defuse3$explore(numberOfSimulations = 50, trueParameters = designParameters$alt4,
-                          showProgress = FALSE)
-analysis <- defuse3$analyze(result)
-print(defuse3$summary(analysis))
 
 ## ------------------------------------------------------------------------
-result <- defuse3$explore(numberOfSimulations = 50, trueParameters = designParameters$alt5,
-                          showProgress = FALSE)
-analysis <- defuse3$analyze(result)
-print(defuse3$summary(analysis))
+knitr::kable(
+           sapply(list(null = null.uniform,
+                       hourglass = hourglass,
+                       inv.hourglass = inverted.hourglass,
+                       bot.heavy = bottom.heavy,
+                       bot.heavier = bottom.heavier,
+                       bot.loaded = bottom.loaded,
+                       top.heavy = top.heavy,
+                       top.heavier = top.heavier,
+                       top.loaded = top.loaded),
+                  computeMeanAndSD)
+       )
 
 ## ------------------------------------------------------------------------
-result <- defuse3$explore(numberOfSimulations = 50, trueParameters = designParameters$alt6,
-                          showProgress = FALSE)
-analysis <- defuse3$analyze(result)
-print(defuse3$summary(analysis))
+designParameters <- list(
+    nul0 = list(prevalence = rep(1, 2),
+                ctlDist = null.uniform,
+                trtDist = cbind(null.uniform,
+                                null.uniform)),
+    alt1 = list(prevalence = rep(1, 2), 
+                ctlDist = null.uniform,
+                trtDist = cbind(top.loaded,
+                                null.uniform)),
+    alt2 = list(prevalence = rep(1, 2), 
+                ctlDist = null.uniform,
+                trtDist = cbind(null.uniform,
+                                top.loaded))
+)
+
+## ------------------------------------------------------------------------
+discDefuse3 <- DEFUSE3Design$new(trialParameters = trialParameters,
+                                 numberOfSimulations = 5000,
+                                 discreteData = TRUE,
+                                 designParameters = designParameters$nul0,
+                                 showProgress = FALSE)
+print(discDefuse3)
+
+## ------------------------------------------------------------------------
+result <- discDefuse3$explore(numberOfSimulations = 50,
+                              showProgress = FALSE,
+                              rngSeed = 3783)
+analysis <- discDefuse3$analyze(result)
+print(discDefuse3$summary(analysis))
+
+## ------------------------------------------------------------------------
+result1 <- discDefuse3$explore(numberOfSimulations = 50,
+                               trueParameters = designParameters$alt1,
+                               showProgress = FALSE,
+                               rngSeed = 28912)
+analysis1 <- discDefuse3$analyze(result1)
+print(discDefuse3$summary(analysis1))
+
+## ------------------------------------------------------------------------
+result2 <- discDefuse3$explore(numberOfSimulations = 50,
+                               trueParameters = designParameters$alt2,
+                               showProgress = FALSE,
+                               rngSeed = 931)
+analysis2 <- discDefuse3$analyze(result2)
+print(discDefuse3$summary(analysis2))
 

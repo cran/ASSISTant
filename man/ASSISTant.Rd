@@ -23,4 +23,3 @@ Adaptive design of confirmatory trials: Advances and challenges,
 Tze Leung Lai and Philip W. Lavori and Ka Wai Tsang. Contemporary Clinical Trials, Vol. 45, Part A,
 pp 93-102 (2015).
 }
-

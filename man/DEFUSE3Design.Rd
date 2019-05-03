@@ -6,7 +6,7 @@
 \title{The DEFUSE3 design}
 \format{An \code{\link{R6Class}} generator object}
 \usage{
-DEFUSE3Design
+# design <- DEFUSE3Design$new(designParameters, trialParameters)
 }
 \description{
 \code{DEFUSE3Design} is a slight variant of the the adaptive
@@ -18,25 +18,29 @@ account as well.
 
 
 \describe{
-  \item{\code{DEFUSE3Design$new(designParameters, trialParameters, generateData, numberOfSimulations = 5000, rngSeed = 54321, showProgress = TRUE)}}{Create
-        a new \code{ASSISTDesign} instance object using the parameters specified. }
-  \item{\code{getDesignParameters},\code{getTrialParameters},
-        \code{getBoundaries}}{Accessor methods for (obvious) object slots}
-  \item{\code{print()}}{Print the object in a human readable form}
-  \item{\code{adjustCriticalValues(numberOfSimulations, rngSeed, showProgress)}}{Adjust the critical values
-        by performing simulations using the parameters provided}
-  \item{\code{computeCriticalValues()}}{Compute the critical boundary value \eqn{c_\alpha}}
-  \item{\code{explore(numberOfSimulations = 5000, rngSeed = 12345, trueParameters = self$getDesignParameters(). showProgress = TRUE)}}{Explore the design
-        using the specified number of simulations and random number seed.  \code{trueParameters} is by default the same
-        as \code{designParameters} as would be the case for a Type I error calculation. If changed, would yield power.
-        Show progress if so desired. Returns a data frame of results}
-  \item{\code{analyze(trialHistory)}}{Analyze
-        the design given the \code{trialHistory} which is the result of a call to \code{explore} to
-        simulate the design. Return a list of summary quantities}
-  \item{\code{summary(analysis)}}{Print the operating characteristics of the design, using the analysis
-        result from the \code{analyze} call}
+\item{\code{DEFUSE3Design$new(designParameters, trialParameters, discreteData = FALSE, numberOfSimulations = 5000, rngSeed = 54321, showProgress = TRUE, boundaries)}}{Create
+a new \code{DEFUSE3Design} instance object using the parameters specified. If \code{discreteData} is \code{TRUE} use a discrete distribution for the Rankin scores and \code{designParameters} must contain the appropriate distributions to sample from. If \code{boundaries} is specified, it is used.}
+\item{\code{getDesignParameters},\code{getTrialParameters},
+\code{getBoundaries}}{Accessor methods for (obvious) object slots}
+\item{\code{setBoundaries}}{Modifier method for boundaries a
+named vector of double values with names \code{btilde},
+\code{b}, and \code{c}, in that order}
+\item{\code{print()}}{Print the object in a human readable form}
+\item{\code{adjustCriticalValues(numberOfSimulations, rngSeed, showProgress)}}{Adjust the critical values
+by performing simulations using the parameters provided}
+\item{\code{computeCriticalValues()}}{Compute the critical boundary value \eqn{c_\alpha}}
+\item{\code{explore(numberOfSimulations = 5000, rngSeed = 12345, trueParameters = self$getDesignParameters(), recordStats = TRUE, showProgress = TRUE, saveRawData = FALSE)}}{Explore the design
+using the specified number of simulations and random number seed.  \code{trueParameters} is by default the same
+as \code{designParameters} as would be the case for a Type I error calculation. If changed, would yield power.
+Record statistics, save raw data and show progress if so desired. Returns a list of results}
+\item{\code{analyze(trialHistory)}}{Analyze
+the design given the \code{trialHistory} which is the result of a call to \code{explore} to
+simulate the design. Return a list of summary quantities}
+\item{\code{summary(analysis)}}{Print the operating characteristics of the design, using the analysis
+result from the \code{analyze} call}
 }
 }
+
 \examples{
 trialParameters <- list(N = c(200, 340, 476), type1Error = 0.025,
                         eps = 1/2, type2Error = 0.1)
@@ -76,13 +80,10 @@ print(defuse3$summary(analysis))
 
 }
 \references{
-Adaptive design of confirmatory trials: Advances and challenges,
-\url{http://www.sciencedirect.com/science/article/pii/S1551714415300239} by
-Tze Leung Lai and Philip W. Lavori and Ka Wai Tsang. Contemporary Clinical Trials, Vol. 45, Part A,
-pp 93-102 (2015).
+Adaptive design of confirmatory trials: Advances and challenges, 2015 45(Pt A):93-102,
+by Tze Leung Lai and Philip W. Lavori and Ka Wai Tsang. doi:10.1016/j.cct.2015.06.007
 }
 \seealso{
 \code{ASSISTDesign} which is a superclass of this object
 }
 \keyword{datasets}
-

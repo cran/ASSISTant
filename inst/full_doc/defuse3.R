@@ -39,46 +39,62 @@ designParameters <- list(
 
 ## ------------------------------------------------------------------------
 defuse3 <- DEFUSE3Design$new(trialParameters = trialParameters,
-                             designParameters = designParameters$nul0, showProgress = FALSE)
+                             numberOfSimulations = 5000,
+                             designParameters = designParameters$nul0,
+                             showProgress = FALSE)
 print(defuse3)
 
 ## ------------------------------------------------------------------------
-result <- defuse3$explore(numberOfSimulations = 5000, showProgress = FALSE)
-analysis <- defuse3$analyze(result)
-print(defuse3$summary(analysis))
-
-## ------------------------------------------------------------------------
-result <- defuse3$explore(numberOfSimulations = 5000, trueParameters = designParameters$alt1,
+result <- defuse3$explore(numberOfSimulations = 5000,
+                          rngSeed = 283768,
                           showProgress = FALSE)
 analysis <- defuse3$analyze(result)
 print(defuse3$summary(analysis))
 
 ## ------------------------------------------------------------------------
-result <- defuse3$explore(numberOfSimulations = 5000, trueParameters = designParameters$alt2,
+result <- defuse3$explore(numberOfSimulations = 5000,
+                          rngSeed = 873782,
+                          trueParameters = designParameters$alt1,
                           showProgress = FALSE)
 analysis <- defuse3$analyze(result)
 print(defuse3$summary(analysis))
 
 ## ------------------------------------------------------------------------
-result <- defuse3$explore(numberOfSimulations = 5000, trueParameters = designParameters$alt3,
+result <- defuse3$explore(numberOfSimulations = 5000,
+                          rngSeed = 45242,
+                          trueParameters = designParameters$alt2,
                           showProgress = FALSE)
 analysis <- defuse3$analyze(result)
 print(defuse3$summary(analysis))
 
 ## ------------------------------------------------------------------------
-result <- defuse3$explore(numberOfSimulations = 5000, trueParameters = designParameters$alt4,
+result <- defuse3$explore(numberOfSimulations = 5000,
+                          rngSeed = 833722,
+                          trueParameters = designParameters$alt3,
                           showProgress = FALSE)
 analysis <- defuse3$analyze(result)
 print(defuse3$summary(analysis))
 
 ## ------------------------------------------------------------------------
-result <- defuse3$explore(numberOfSimulations = 5000, trueParameters = designParameters$alt5,
+result <- defuse3$explore(numberOfSimulations = 5000,
+                          rngSeed = 434272,
+                          trueParameters = designParameters$alt4,
                           showProgress = FALSE)
 analysis <- defuse3$analyze(result)
 print(defuse3$summary(analysis))
 
 ## ------------------------------------------------------------------------
-result <- defuse3$explore(numberOfSimulations = 5000, trueParameters = designParameters$alt6,
+result <- defuse3$explore(numberOfSimulations = 5000,
+                          rngSeed = 132323,
+                          trueParameters = designParameters$alt5,
+                          showProgress = FALSE)
+analysis <- defuse3$analyze(result)
+print(defuse3$summary(analysis))
+
+## ------------------------------------------------------------------------
+result <- defuse3$explore(numberOfSimulations = 5000,
+                          rngSeed = 653221,
+                          trueParameters = designParameters$alt6,
                           showProgress = FALSE)
 analysis <- defuse3$analyze(result)
 print(defuse3$summary(analysis))

@@ -1,0 +1,77 @@
+---
+title: "Using Discrete Rankin Scores"
+author: "Tze Leung Lai, Philip W. Lavori, Olivia Liao, Ka Wai Tsang
+and Balasubramanian Narasimhan"
+date: '`r Sys.Date()`'
+bibliography: assistant.bib
+output:
+  html_document:
+  theme: cerulean
+  toc: yes
+  toc_depth: 2
+vignette: >
+  %\VignetteIndexEntry{Using Discrete Rankin Scores}
+  %\VignetteEngine{knitr::rmarkdown}
+  \usepackage[utf8]{inputenc}
+---
+
+```{r echo=F}
+### get knitr just the way we like it
+
+knitr::opts_chunk$set(
+  message = FALSE,
+  warning = FALSE,
+  error = FALSE,
+  tidy = FALSE,
+  cache = FALSE
+)
+```
+
+## Introduction
+
+We simulate data from a discrete distribution for the Rankin scores,
+which are ordinal integers from 0 to 6 in the following
+simulations. So we define a few scenarios.
+
+```{r}
+library(ASSISTant)
+null.uniform <- rep(1, 7L) ## uniform on 7 support points
+hourglass <- c(1, 2, 2, 1, 2, 2, 1)
+inverted.hourglass <- c(2, 1, 1, 2, 1, 1, 2)
+bottom.heavy <- c(2, 2, 2, 1, 1, 1, 1)
+bottom.heavier <- c(3, 3, 2, 2, 1, 1, 1)
+top.heavy <- c(1, 1, 1, 1, 2, 2, 2)
+top.heavier <- c(1, 1, 1, 2, 2, 3, 3)
+```
+
+```{r}
+ctlDist <- null.uniform
+trtDist <- cbind(null.uniform, null.uniform, null.uniform,
+                 hourglass, hourglass, hourglass)
+
+##d <- generateDiscreteRankinScores(rep(1, 6), 10, ctlDist, trtDist)
+```
+
+### Scenario S0
+
+This is the _null_ setting.
+
+```{r}
+data(LLL.SETTINGS)
+designParameters <- list(prevalence = rep(1/6, 6),
+                         ctlDist = ctlDist,
+                         trtDist = trtDist)
+
+designA <- ASSISTDesign$new(trialParameters = LLL.SETTINGS$trialParameters,
+                            designParameters = designParameters, discreteData = TRUE)
+print(designA)
+```
+
+```{r}
+result <- designA$explore(numberOfSimulations = 5000, showProgress = FALSE)
+analysis <- designA$analyze(result)
+print(designA$summary(analysis))
+```
+
+
+

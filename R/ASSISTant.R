@@ -51,7 +51,7 @@ scalarInRange <- function(x, low = -Inf, high = Inf) {
 #'
 #' @keywords internal
 numberInRange <- function(x, low = -Inf, high = Inf) {
-    all((x >= low) && (x <= high))
+    all((x >= low) & (x <= high))
 }
 
 #' Is a scalar quantity is an integer in specified range?
@@ -87,6 +87,6 @@ scalarIntegerInRange <- function(x, low = -Inf, high = Inf) {
 #'
 #' @keywords internal
 integerInRange <- function(x, low = -Inf, high = Inf) {
-    all((x == trunc(x)) && (x >= low) && (x <= high))
+    all((x == trunc(x)) & (x >= low) & (x <= high))
 }
 
