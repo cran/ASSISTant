@@ -4,8 +4,7 @@
 \alias{computeMHPBoundaries}
 \title{Compute the three modified Haybittle-Peto boundaries}
 \usage{
-computeMHPBoundaries(prevalence, N, alpha, beta, eps,
-  futilityOnly = FALSE)
+computeMHPBoundaries(prevalence, N, alpha, beta, eps, futilityOnly = FALSE)
 }
 \arguments{
 \item{prevalence}{the vector of prevalences between 0 and 1 summing
@@ -30,11 +29,4 @@ a named vector of three values containing
 }
 \description{
 Compute the three modified Haybittle-Peto boundaries
-}
-\references{
-Adaptive Choice of Patient Subgroup for Comparing Two
-Treatments by Tze Leung Lai and Philip W. Lavori and Olivia
-Yueh-Wen Liao. Contemporary Clinical Trials, Vol. 39, No. 2, pp
-191-200
-(2014). \url{http://www.sciencedirect.com/science/article/pii/S1551714414001311}
 }

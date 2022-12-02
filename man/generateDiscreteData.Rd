@@ -50,4 +50,10 @@ ctl.dist <- c(1, 1, 1, 1, 1) ## null on 5 support points
 trt.dist <- cbind(ctl.dist, ctl.dist, top.loaded) ## 3 groups
 generateDiscreteData(prevalence = rep(1, 3), N = 10, support = support,
                      ctlDist = ctl.dist, trtDist = trt.dist)
+## ctl.dist can also be a matrix with different nulls for each subgroup
+uniform <- rep(1, 5)
+bot.loaded <- c(3, 3, 1, 1, 1)
+ctl.dist <- matrix(c(uniform, bot.loaded, top.loaded), nrow = 5)
+generateDiscreteData(prevalence = rep(1, 3), N = 10, support = support,
+                     ctlDist = ctl.dist, trtDist = trt.dist)
 }

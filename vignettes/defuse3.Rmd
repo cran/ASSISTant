@@ -1,7 +1,6 @@
 ---
 title: "Design of the DEFUSE3 Trial"
-author: "Tze Leung Lai, Philip W. Lavori, Olivia Liao, Ka Wai Tsang
-and Balasubramanian Narasimhan"
+author: "Tze Leung Lai, Philip W. Lavori, Olivia Liao, Ka Wai Tsang and Balasubramanian Narasimhan"
 date: '`r Sys.Date()`'
 bibliography: assistant.bib
 output:

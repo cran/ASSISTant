@@ -3,23 +3,27 @@
 \docType{package}
 \name{ASSISTant}
 \alias{ASSISTant}
-\alias{ASSISTant-package}
 \title{Three stage group sequential adaptive design with subgroup selection}
 \description{
-\code{ASSISTant} is a package that implements a three-stage adaptive clinical trial design with
-provision for subgroup selection where the treatment may be effective. The main design object
-is an \code{R6} class that can be instantiated and manipulated to obtain the operating
-characteristics. A vignette is provided showing the use of this package for designing the DEFUSE-3
-trial, described in the paper by Lai, Lavori and Liao. The package contains everything necessary
-to reproduce the results of the paper.
+\code{ASSISTant} is a package that implements a three-stage
+adaptive clinical trial design with provision for subgroup
+selection where the treatment may be effective; see Lai, Lavori and
+Liao (\doi{10.1016/j.cct.2014.09.001}). The main design object is
+an \code{R6} class that can be instantiated and manipulated to
+obtain the operating characteristics. A vignette is provided
+showing the use of this package for designing the DEFUSE-3 trial,
+described in the paper by Lai, Lavori and Liao. The package
+contains everything necessary to reproduce the results of the
+paper.
 }
 \references{
-Adaptive Choice of Patient Subgroup for Comparing Two Treatments
-by Tze Leung Lai and Philip W. Lavori and Olivia Yueh-Wen Liao. Contemporary Clinical Trials,
-Vol. 39, No. 2, pp 191-200 (2014). \url{http://www.sciencedirect.com/science/article/pii/S1551714414001311}
+Adaptive Choice of Patient Subgroup for Comparing Two
+Treatments by Tze Leung Lai and Philip W. Lavori and Olivia
+Yueh-Wen Liao. Contemporary Clinical Trials, Vol. 39, No. 2, pp
+191-200 (2014, \doi{10.1016/j.cct.2014.09.001}).
 
-Adaptive design of confirmatory trials: Advances and challenges,
-\url{http://www.sciencedirect.com/science/article/pii/S1551714415300239} by
-Tze Leung Lai and Philip W. Lavori and Ka Wai Tsang. Contemporary Clinical Trials, Vol. 45, Part A,
-pp 93-102 (2015).
+Adaptive design of confirmatory trials: Advances and
+challenges by Tze Leung Lai and Philip W. Lavori and Ka Wai
+Tsang. Contemporary Clinical Trials, Vol. 45, Part A, pp 93-102
+(2015, \doi{10.1016/j.cct.2015.06.007}).
 }

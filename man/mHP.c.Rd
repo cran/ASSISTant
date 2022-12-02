@@ -39,10 +39,3 @@ all the other \eqn{Z_j} given \eqn{Z_i}}
 Compute the efficacy boundary (modified Haybittle-Peto) for the
 final (third) stage
 }
-\references{
-Adaptive Choice of Patient Subgroup for Comparing Two
-Treatments by Tze Leung Lai and Philip W. Lavori and Olivia
-Yueh-Wen Liao. Contemporary Clinical Trials, Vol. 39, No. 2, pp
-191-200
-(2014). \url{http://www.sciencedirect.com/science/article/pii/S1551714414001311}
-}

@@ -1,3 +1,8 @@
+# ASSISTant 1.4-3
+
+- Allowing for different control probabilities for discrete Rankin
+  scores.
+
 # ASSISTant 1.4-2
 
 - Added Rankin Score vignette

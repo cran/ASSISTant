@@ -28,10 +28,3 @@ fact that the \eqn{\tilde{Z_J}} is merely a translation of
 \eqn{Z_J}. So here the calculation is based on a mean of zero and
 has to be translated during use!
 }
-\references{
-Adaptive Choice of Patient Subgroup for Comparing Two
-Treatments by Tze Leung Lai and Philip W. Lavori and Olivia
-Yueh-Wen Liao. Contemporary Clinical Trials, Vol. 39, No. 2, pp
-191-200
-(2014). \url{http://www.sciencedirect.com/science/article/pii/S1551714414001311}
-}

@@ -5,8 +5,14 @@
 \title{Compute the sample size for any group at a stage assuming a nested
 structure as in the paper.}
 \usage{
-groupSampleSize(prevalence, N, stage, group, HJFutileAtStage = NA,
-  chosenGroup = NA)
+groupSampleSize(
+  prevalence,
+  N,
+  stage,
+  group,
+  HJFutileAtStage = NA,
+  chosenGroup = NA
+)
 }
 \arguments{
 \item{prevalence}{the vector of prevalence, will be normalized if
@@ -36,11 +42,4 @@ nested with assumed prevalences and fixed total sample size at each
 stage. This function returns the sample size for a specified group
 at a given stage, where the futility stage for the overall group
 test may be specified along with the chosen subgroup.
-}
-\references{
-Adaptive Choice of Patient Subgroup for Comparing Two
-Treatments by Tze Leung Lai and Philip W. Lavori and Olivia
-Yueh-Wen Liao. Contemporary Clinical Trials, Vol. 39, No. 2, pp
-191-200
-(2014). \url{http://www.sciencedirect.com/science/article/pii/S1551714414001311}
 }

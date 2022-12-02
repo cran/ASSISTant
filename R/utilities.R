@@ -42,7 +42,6 @@ STAGE_COL_NAME = "exitStage"
 #'
 #' @importFrom stats wilcox.test
 #' @export
-#' @md
 wilcoxon <- function(x, y, theta = 0) {
     r <- rank(c(x, y))
     n.x <- as.double(length(x))
@@ -84,13 +83,6 @@ wilcoxon <- function(x, y, theta = 0) {
 #' @return the sample size for group
 #'
 #' @export
-#'
-#' @references Adaptive Choice of Patient Subgroup for Comparing Two
-#'     Treatments by Tze Leung Lai and Philip W. Lavori and Olivia
-#'     Yueh-Wen Liao. Contemporary Clinical Trials, Vol. 39, No. 2, pp
-#'     191-200
-#'     (2014). \url{http://www.sciencedirect.com/science/article/pii/S1551714414001311}
-#' @md
 groupSampleSize <- function(prevalence, N, stage, group, HJFutileAtStage = NA, chosenGroup = NA) {
     if (!integerInRange(N, low = 1) || length(N) != NUM_STAGES) {
         stop("Improper values for sample size N")
@@ -183,12 +175,6 @@ groupSampleSize <- function(prevalence, N, stage, group, HJFutileAtStage = NA, c
 #'
 #' @importFrom mvtnorm pmvnorm Miwa
 #' @importFrom stats dnorm
-#' @references Adaptive Choice of Patient Subgroup for Comparing Two
-#'     Treatments by Tze Leung Lai and Philip W. Lavori and Olivia
-#'     Yueh-Wen Liao. Contemporary Clinical Trials, Vol. 39, No. 2, pp
-#'     191-200
-#'     (2014). \url{http://www.sciencedirect.com/science/article/pii/S1551714414001311}
-#' @md
 den.vs <- function(v, i, mu.prime, Sigma.prime, fut ) {
     ## Density function used in integration
     mu.prime <- mu.prime * v
@@ -219,13 +205,6 @@ den.vs <- function(v, i, mu.prime, Sigma.prime, fut ) {
 #' @importFrom stats uniroot qnorm
 #' @importFrom mvtnorm pmvnorm Miwa
 #' @export
-#'
-#' @references Adaptive Choice of Patient Subgroup for Comparing Two
-#'     Treatments by Tze Leung Lai and Philip W. Lavori and Olivia
-#'     Yueh-Wen Liao. Contemporary Clinical Trials, Vol. 39, No. 2, pp
-#'     191-200
-#'     (2014). \url{http://www.sciencedirect.com/science/article/pii/S1551714414001311}
-#' @md
 mHP.btilde <- function (beta, cov.J) {
     sigma <- cov.J[-NUM_STAGES, -NUM_STAGES]
     btilde <- stats::uniroot(f = function(btilde) {
@@ -262,13 +241,6 @@ mHP.btilde <- function (beta, cov.J) {
 #' @importFrom stats integrate pnorm uniroot
 #' @importFrom mvtnorm pmvnorm Miwa
 #' @export
-#'
-#' @references Adaptive Choice of Patient Subgroup for Comparing Two
-#'     Treatments by Tze Leung Lai and Philip W. Lavori and Olivia
-#'     Yueh-Wen Liao. Contemporary Clinical Trials, Vol. 39, No. 2, pp
-#'     191-200
-#'     (2014). \url{http://www.sciencedirect.com/science/article/pii/S1551714414001311}
-#' @md
 mHP.b <- function (prevalence, N, cov.J, mu.prime, Sigma.prime, alpha, btilde, theta) {
     J <- length(prevalence)
     q <- cumsum(prevalence / sum(prevalence))
@@ -365,13 +337,6 @@ mHP.b <- function (prevalence, N, cov.J, mu.prime, Sigma.prime, alpha, btilde, t
 #' @importFrom stats uniroot qnorm integrate
 #' @importFrom mvtnorm pmvnorm Miwa
 #' @export
-#'
-#' @references Adaptive Choice of Patient Subgroup for Comparing Two
-#'     Treatments by Tze Leung Lai and Philip W. Lavori and Olivia
-#'     Yueh-Wen Liao. Contemporary Clinical Trials, Vol. 39, No. 2, pp
-#'     191-200
-#'     (2014). \url{http://www.sciencedirect.com/science/article/pii/S1551714414001311}
-#' @md
 mHP.c <- function (prevalence, N, cov.J, mu.prime, Sigma.prime, alpha, btilde, b, theta) {
     ## Function for computing final boundary c
     J <- length(prevalence)
@@ -497,13 +462,6 @@ mHP.c <- function (prevalence, N, cov.J, mu.prime, Sigma.prime, alpha, btilde, b
 #'
 #' @importFrom stats integrate pnorm uniroot
 #' @export
-#'
-#' @references Adaptive Choice of Patient Subgroup for Comparing Two
-#'     Treatments by Tze Leung Lai and Philip W. Lavori and Olivia
-#'     Yueh-Wen Liao. Contemporary Clinical Trials, Vol. 39, No. 2, pp
-#'     191-200
-#'     (2014). \url{http://www.sciencedirect.com/science/article/pii/S1551714414001311}
-#' @md
 computeMHPBoundaries <- function(prevalence, N, alpha, beta, eps, futilityOnly = FALSE) {
     J <- length(prevalence)
     q <- cumsum(prevalence / sum(prevalence))
@@ -572,13 +530,6 @@ computeMHPBoundaries <- function(prevalence, N, alpha, beta, eps, futilityOnly =
 #' @param alpha the type I error
 #' @return a named vector of a single value containing the value for `c`
 #' @export
-#'
-#' @references Adaptive Choice of Patient Subgroup for Comparing Two
-#'     Treatments by Tze Leung Lai and Philip W. Lavori and Olivia
-#'     Yueh-Wen Liao. Contemporary Clinical Trials, Vol. 39, No. 2, pp
-#'     191-200
-#'     (2014). \url{http://www.sciencedirect.com/science/article/pii/S1551714414001311}
-#' @md
 computeMHPBoundaryITT <- function(prevalence, alpha) {
     J <- length(prevalence)
     q <- cumsum(prevalence / sum(prevalence))
@@ -627,7 +578,6 @@ computeMHPBoundaryITT <- function(prevalence, alpha) {
 #' @param J the number of subgroups
 #' @return a character vector of the column names
 #' @export
-#' @md
 colNamesForStage <- function(stage, J) {
     seqJ <- seq_len(J)
     c(paste(c("decision", "wcx", "wcx.fut", "Nl"), stage, sep = "_"),
@@ -676,15 +626,26 @@ colNamesForStage <- function(stage, J) {
 #' trt.dist <- cbind(ctl.dist, ctl.dist, top.loaded) ## 3 groups
 #' generateDiscreteData(prevalence = rep(1, 3), N = 10, support = support,
 #'                      ctlDist = ctl.dist, trtDist = trt.dist)
+#' ## ctl.dist can also be a matrix with different nulls for each subgroup
+#' uniform <- rep(1, 5)
+#' bot.loaded <- c(3, 3, 1, 1, 1)
+#' ctl.dist <- matrix(c(uniform, bot.loaded, top.loaded), nrow = 5)
+#' generateDiscreteData(prevalence = rep(1, 3), N = 10, support = support,
+#'                      ctlDist = ctl.dist, trtDist = trt.dist)
 #' @export
-#' @md
 generateDiscreteData <- function(prevalence, N, support = 0L:6L, ctlDist, trtDist) {
     nR <- length(support)
-    stopifnot(length(ctlDist) == nR && nrow(trtDist) == nR)
     J <- length(prevalence)
-    stopifnot(J == ncol(trtDist))
-    null <- sapply(seq_len(J), function(x) ctlDist)
-    dists <- cbind(null, trtDist)
+    
+    if (is.matrix(ctlDist)) {
+      null <- ctlDist
+    } else {
+      null <- matrix(rep(ctlDist, J), ncol = J)
+    }
+    if(nrow(null) != nR || nrow(trtDist) != nR || ncol(trtDist) != J) {
+        stop("generateDiscreteData: wrong dimensions for ctrlDist/trtDist")
+    }
+    dists <- cbind(null, trtDist)    
 
     if (N == 0) {
         data.frame(subGroup = integer(0), trt = integer(0),
@@ -710,7 +671,6 @@ generateDiscreteData <- function(prevalence, N, support = 0L:6L, ctlDist, trtDis
 #' @param sd a 2 x J matrix of standard deviations under the null (first row) and alternative for each group
 #' @return a three-column data frame of `subGroup`, `trt` (0 or 1), and `score`
 #' @export
-#' @md
 generateNormalData <- function(prevalence, N, mean, sd) {
     J <- length(prevalence)
     stopifnot((J == ncol(mean)) && (J == ncol(sd)))
@@ -735,11 +695,55 @@ generateNormalData <- function(prevalence, N, mean, sd) {
 #' @param support a vector of support values (default 0:6 for Rankin Scores)
 #' @return a named vector of `mean` and `sd`
 #' @export
-#' @md
 computeMeanAndSD <- function(probVec = rep(1, 7L), support = 0L:6L) {
     stopifnot(all(probVec >= 0))
     probVec <- probVec / sum(probVec)
     mean <- sum(support * probVec)
     sd <- sqrt(sum(probVec * support^2) - mean^2)
     c(mean = mean, sd = sd)
+}
+
+
+#' Conform designParameters so that weights are turned in to probabilities, the null and control distributions are proper matrices etc.
+#' @param plist the parameter list
+#' @param discreteData flag if data is discrete
+#' @return the modified parameter list
+conformParameters  <- function(plist, discreteData = FALSE) {
+    prevalence  <- plist$prevalence
+    J  <- length(prevalence)
+    plist$J <- J
+    prevalence <- prevalence / sum(prevalence)
+    names(prevalence) <- paste0("Group", seq_len(J))
+    plist$prevalence <- prevalence
+    if (discreteData) {
+        support <- plist$distSupport
+        ## Assume Rankin is 0:6 unless specified in designParameters
+        if (is.null(support)) {
+            support <- 0L:6L
+        }
+        plist$distSupport  <- support
+
+        ctlDist <- plist$ctlDist
+        if (!is.matrix(ctlDist)) {
+            ctlDist  <- matrix(c(rep(ctlDist, J)), ncol = J)
+        }
+        ctlDist <- apply(ctlDist, 2, function(x) x/sum(x))
+        rownames(ctlDist) <- support
+        colnames(ctlDist)  <- names(prevalence)
+        plist$ctlDist <- ctlDist
+
+        trtDist <- plist$trtDist
+        trtDist <- apply(trtDist, 2, function(x) x/sum(x))
+        rownames(trtDist) <- support
+        colnames(trtDist) <- names(prevalence)
+        plist$trtDist <- trtDist
+    } else {
+        mean <- plist$mean
+        sd <- plist$sd
+        rownames(mean) <- rownames(sd) <- c("Null", "Alt")
+        colnames(mean) <- colnames(sd) <- names(prevalence)
+        plist$mean <- mean
+        plist$sd <- sd
+    }
+    plist
 }

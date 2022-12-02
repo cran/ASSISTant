@@ -19,10 +19,3 @@ a named vector of a single value containing the value for \code{c}
 \description{
 Compute the three modified Haybittle-Peto boundaries and effect size
 }
-\references{
-Adaptive Choice of Patient Subgroup for Comparing Two
-Treatments by Tze Leung Lai and Philip W. Lavori and Olivia
-Yueh-Wen Liao. Contemporary Clinical Trials, Vol. 39, No. 2, pp
-191-200
-(2014). \url{http://www.sciencedirect.com/science/article/pii/S1551714414001311}
-}

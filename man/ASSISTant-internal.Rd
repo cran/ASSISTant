@@ -36,18 +36,6 @@ value, the parameter \code{v}.}
 
 \item{fut}{the futility boundary, which is \eqn{\tilde{b}}{btilde}
 for stages 1 and 2, but \eqn{c} for stage 3}
-
-\item{low}{the lower bound, default \code{-Inf}}
-
-\item{high}{the upper bound, default \code{Inf}}
-
-\item{low}{the lower bound, default \code{-Inf}}
-
-\item{high}{the upper bound, default \code{Inf}}
-
-\item{low}{the lower bound, default \code{-Inf}}
-
-\item{high}{the upper bound, default \code{Inf}}
 }
 \value{
 \code{TRUE} or \code{FALSE}
@@ -80,27 +68,5 @@ given that it was maximal among all subgroups:
 }
 
 where \eqn{z_{-i}} denotes all subgroups other than \eqn{i}.
-}
-\examples{
-ASSISTant:::scalarInRange(x = 10, low = 2)  ## TRUE
-ASSISTant:::scalarInRange(x = 10, high = 2) ## FALSE
-
-ASSISTant:::numberInRange(x = 2:10, low = 2)  ## TRUE
-ASSISTant:::numberInRange(x = 10:15, high = 2) ## FALSE
-
-ASSISTant:::integerInRange(x = 10, low = 2)  ## TRUE
-ASSISTant:::integerInRange(x = 10.5) ## FALSE
-
-ASSISTant:::integerInRange(x = 2:10, low = 2)  ## TRUE
-ASSISTant:::integerInRange(x = 10:15, high = 2) ## FALSE
-ASSISTant:::integerInRange(x = c(0.5, 1.5), high = 2) ## FALSE
-
-}
-\references{
-Adaptive Choice of Patient Subgroup for Comparing Two
-Treatments by Tze Leung Lai and Philip W. Lavori and Olivia
-Yueh-Wen Liao. Contemporary Clinical Trials, Vol. 39, No. 2, pp
-191-200
-(2014). \url{http://www.sciencedirect.com/science/article/pii/S1551714414001311}
 }
 \keyword{internal}
